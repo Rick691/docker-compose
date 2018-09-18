@@ -1,2 +1,2 @@
 # rocketmq
-docker-compose集群版
+docker-compose cluster
