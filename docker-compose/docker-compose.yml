@@ -1,0 +1,40 @@
+version: '3'
+services:
+    namesrv_dev:
+        network_mode: host
+        image: apache/rocketmq-namesrv:4.2.0-compose
+        container_name: namesrv
+        build:
+          context: ./rocketmq-namesrv
+          args:
+            - version=4.2.0
+        volumes:
+            - ./data/namesrv/logs:/opt/logs
+            - ./data/namesrv/store:/opt/store
+        ports:
+          - 9876:9876
+        restart: unless-stopped
+        environment: 
+            MEMORY_CONF: "-Xms256m -Xmx512m -Xmn256m"
+    borker_node_a:
+        container_name: broker-node_a
+        image: apache/rocketmq-broker:4.2.0-compose
+        network_mode: host
+        volumes:
+            - ./data/broker-node_a/logs:/opt/logs
+            - ./data/broker-node_a/store:/opt/store
+        restart: unless-stopped
+        environment: 
+            MEMORY_CONF: "-Xms256m -Xmx512m -Xmn256m"
+            NAMESRV_ADDR: "xxx.xxx.xxx.xxx:9876"
+    borker_node_b:
+        container_name: broker-node_b
+        image: apache/rocketmq-broker:4.2.0-compose
+        network_mode: host
+        volumes:
+            - ./data/broker-node_b/logs:/opt/logs
+            - ./data/broker-node_b/store:/opt/store
+        restart: unless-stopped
+        environment:
+            MEMORY_CONF: "-Xms256m -Xmx512m -Xmn256m"
+            NAMESRV_ADDR: "xxx.xxx.xxx.xxx:9876"
