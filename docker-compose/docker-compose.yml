@@ -20,6 +20,9 @@ services:
         container_name: broker-node_a
         image: apache/rocketmq-broker:4.2.0-compose
         network_mode: host
+        ports:
+          - 10909:10909
+          - 10911:10911
         volumes:
             - ./data/broker-node_a/logs:/opt/logs
             - ./data/broker-node_a/store:/opt/store
@@ -31,6 +34,9 @@ services:
         container_name: broker-node_b
         image: apache/rocketmq-broker:4.2.0-compose
         network_mode: host
+        ports:
+          - 10908:10908
+          - 10910:10910
         volumes:
             - ./data/broker-node_b/logs:/opt/logs
             - ./data/broker-node_b/store:/opt/store
